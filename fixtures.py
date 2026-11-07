@@ -306,3 +306,20 @@ def mock_rerank(query: str, docs: list[dict]) -> dict:
         results.append({"index": i, "id": d["id"], "action": "use" if overlap > 0.45 else "expand" if overlap > 0.2 else "skip",
                         "relevance_score": round(min(overlap * 1.5, 0.99), 3), "document_score": round(min(overlap * 1.2, 0.9), 3)})
     return {"model": "mock", "results": sorted(results, key=lambda r: r["relevance_score"], reverse=True)}
+
+def mock_script(script: str) -> dict:
+    """Offline stand-in for the Inspect call: keyword rules over the script body."""
+    low = script.lower()
+    if any(k in low for k in ("mimikatz", "dump", "bypass", "stop-windows")) or ("disable" in low and any(k in low for k in ("monitor", "realtime", "edr", "antivirus"))):
+        verdict, category, high = "malicious", "security blinding or EDR evasion", 0.99
+    elif any(k in low for k in ("remove", "delete", "disable", "shutdown", "schedule")):
+        verdict, category, high = "suspicious", "destructive administration", 0.62
+    else:
+        verdict, category, high = "benign", "benign administration", 0.05
+    evidence = [ln.strip() for ln in script.splitlines() if any(k in ln.lower() for k in ("disable", "dump", "bypass", "mimikatz"))][:3]
+    return {
+        "model": "mock", "verdict": verdict, "malicious": high if verdict == "malicious" else 0.05,
+        "suspicious": high if verdict != "benign" else 0.05, "category": category,
+        "severity": "high" if verdict == "malicious" else "medium" if verdict == "suspicious" else "low",
+        "evidence": [{"line": e} for e in evidence],
+    }

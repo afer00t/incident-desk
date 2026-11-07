@@ -33,6 +33,7 @@ from fixtures import (
     mock_injection,
     mock_pii,
     mock_rerank,
+    mock_script,
 )
 
 ROOT = Path(__file__).resolve().parent
@@ -115,6 +116,13 @@ def run(fn, *args, endpoint: str, **kwargs):
     return out
 
 
+def mock_call(fn, endpoint: str, *args, **kwargs):
+    """Run the offline model and record the request the same way live calls are recorded."""
+    out = fn(*args, **kwargs)
+    log_usage(endpoint, "mock")
+    return out
+
+
 def severity_label(score: int) -> str:
     return ["Routine", "Standard", "High", "Critical"][min(max(score, 0), 3)]
 
@@ -155,12 +163,12 @@ def intake(req: Intake):
     if not raw:
         return {"error": "empty ticket"}
 
-    pii = run(api.pii, raw, endpoint="pii") if api.active else mock_pii(raw)
+    pii = run(api.pii, raw, endpoint="pii") if api.active else mock_call(mock_pii, "pii", raw)
     safe = (pii.get("anonymized_text") or raw) if api.active else pii["anonymized_text"]
 
-    injection = run(api.injection, safe, "inbound", 0.5) if api.active else mock_injection(safe, "inbound")
-    decision = run(api.decide, safe, DECISION_QUESTIONS) if api.active else mock_decide(safe)
-    extraction = run(api.extract, safe, EXTRACT_FIELDS) if api.active else mock_extract(raw)
+    injection = run(api.injection, safe, "user", 0.5) if api.active else mock_call(mock_injection, "injection", safe, "user")
+    decision = run(api.decide, safe, DECISION_QUESTIONS) if api.active else mock_call(mock_decide, "decide", safe)
+    extraction = run(api.extract, safe, EXTRACT_FIELDS) if api.active else mock_call(mock_extract, "extract", raw)
 
     severity = int(decision.get("answers", {}).get("severity", {}).get("score", 0) or 0)
     owner_key = decision.get("answers", {}).get("owner", {}).get("choice", "identity")
@@ -202,7 +210,7 @@ def answer(req: Answer):
     if api.active:
         out = run(api.grounding, f"Does the assistant answer follow from {row['id']} and the knowledge base?", docs, req.answer, 0.65)
     else:
-        out = mock_grounding(req.answer, docs)
+        out = mock_call(mock_grounding, "grounding", req.answer, docs)
     return {"ticket_id": row["id"], "answer": req.answer, "check": out}
 
 
@@ -217,7 +225,7 @@ def duplicates(req: Duplicate):
     if api.active:
         out = run(api.compare, docs)
     else:
-        out = mock_compare(docs)
+        out = mock_call(mock_compare, "compare", docs)
     return {"ticket_id": mine["id"], "check": out}
 
 
@@ -227,7 +235,7 @@ def kb(req: KbQuery):
     if api.active:
         out = run(api.rerank, req.query, docs)
     else:
-        out = mock_rerank(req.query, docs)
+        out = mock_call(mock_rerank, "rerank", req.query, docs)
     items = out.get("results") if isinstance(out, dict) else out
     return {"query": req.query, "results": items or []}
 
@@ -240,11 +248,7 @@ def inspect_script(req: ScriptReq):
     )
     if api.active:
         return run(api.script, req.script, instructions)
-    script = req.script.lower()
-    verdict = "malicious" if any(k in script for k in ("disable", "dump", "mimikatz", "reverse", "bypass")) else "suspicious" if any(k in script for k in ("remove", "delete", "schedule")) else "benign"
-    return {"model": "mock", "verdict": verdict, "malicious": 0.99 if verdict == "malicious" else 0.1,
-            "suspicious": 0.9 if verdict != "benign" else 0.05, "category": "security blinding or EDR evasion" if verdict == "malicious" else "benign administration",
-            "severity": "high" if verdict == "malicious" else "low", "evidence": []}
+    return mock_call(mock_script, "script", req.script)
 
 
 @app.post("/api/demo/fill")
