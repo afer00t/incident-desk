@@ -10,6 +10,7 @@ import json
 import os
 import re
 import sqlite3
+import threading
 import time
 import uuid
 from pathlib import Path
@@ -274,16 +275,22 @@ def inspect_script(req: ScriptReq):
     return mock_call(mock_script, "script", req.script)
 
 
+SEED_LOCK = threading.Lock()
+
+
 @app.post("/api/demo/fill")
 def seed_demo():
     """Seed from the synthetic fixtures so a first-time visitor sees a populated inbox."""
-    with db() as conn:
-        existing = conn.execute("SELECT COUNT(*) c FROM tickets").fetchone()["c"]
-    if existing:
-        return {"skipped": True}
-    for t in TICKETS:
-        req = Intake(text=t["raw"], source="email")
-        intake(req)
+    with SEED_LOCK:
+        with db() as conn:
+            existing = conn.execute("SELECT COUNT(*) c FROM tickets").fetchone()["c"]
+        if existing:
+            return {"skipped": True}
+        for t in TICKETS:
+            try:
+                intake(Intake(text=t["raw"], source="email"))
+            except sqlite3.IntegrityError:
+                continue  # a concurrent seed already wrote this ticket
     return {"seeded": len(TICKETS)}
 
 

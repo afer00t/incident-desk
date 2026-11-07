@@ -87,3 +87,10 @@ Screen shot of the live console: `docs/screenshots/04-live-verified.png`.
 
 The first live intake failed with a `run()` signature error; fixed, then 14 requests succeeded.
 `anonymize` is not a boolean on the wire — it is the string `redact` (the API returns 422 otherwise).
+
+## 7. Demo seed race
+
+Clicking **Load demo** twice in parallel could generate two workers that both saw an empty
+inbox; one insert then lost a `UNIQUE` race on the ticket id and the old process exited.
+A module-level `SEED_LOCK` now serialises seeding and a losing insert is skipped instead of
+aborting the request. `/api/demo/fill` returns `{"skipped": true}` once the inbox has any ticket.
