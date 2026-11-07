@@ -72,3 +72,9 @@ data. No API key is committed; the app reads `CLOCKED_API_KEY` from the environm
 - The offline model is a keyword implementation and is labelled `MOCK` in the toolbar so it is never
   mistaken for a live Clocked result.
 - Live responses were sampled once per endpoint; this is evidence of correctness, not a benchmark.
+
+**Submission:** saved from the Clocked account on 2026-11-07, before 17:36 WIB. The entry selects Decide, Extract,
+PII, injection guard, script inspect, grounding, Compare and Rerank (eight endpoints; no Fill). Team:
+WELY. Demo, repository, write-up, and the rules agreement are set; the form reports
+"Entry saved" and the values survive a reload. Screenshot:
+`docs/screenshots/05-submission-saved.png`.
