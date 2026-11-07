@@ -57,6 +57,13 @@
   .okbox{border-left:3px solid var(--ok);background:#0d1a13;padding:10px 12px;border-radius:6px;margin:8px 0}
   footer{color:var(--dim);font-size:11.5px;border-top:1px solid var(--line);margin-top:20px;padding-top:10px}
   code{background:#151d27;border:1px solid var(--line);padding:1px 5px;border-radius:5px;font:12px ui-monospace,monospace}
+  @media (max-width:760px){
+    .layout{grid-template-columns:1fr}
+    aside{max-height:38vh;border-right:0;border-bottom:1px solid var(--line)}
+    main{max-height:none}
+    header{gap:8px;flex-wrap:wrap}
+    .metric{font-size:11px}
+  }
 </style>
 </head>
 <body>

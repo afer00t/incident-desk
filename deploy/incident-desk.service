@@ -1,0 +1,18 @@
+[Unit]
+Description=Incident Desk (Clocked Build Challenge)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=afx
+WorkingDirectory=/home/afx/incident-desk
+EnvironmentFile=/home/afx/incident-desk/.env
+ExecStart=/home/afx/incident-desk/.venv/bin/uvicorn app:app --host 127.0.0.1 --port 8777
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
