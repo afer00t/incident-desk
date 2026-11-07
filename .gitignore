@@ -4,4 +4,5 @@ __pycache__/
 *.pyc
 data/*.sqlite*
 .venv/
-*.log
+*.logverify_email.txt
+sigin.txt
