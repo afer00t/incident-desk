@@ -250,7 +250,7 @@ function renderClaims(check) {
   const c = check.check || {};
   const claims = c.claims || [];
   const verdict = c.verdict || "—";
-  const colour = verdict === "supported" ? "okbox" : verdict === "contradicted" ? "warnbox" : "warnbox";
+  const colour = verdict === "supported" ? "okbox" : "warnbox";
   return `
     <div class="card">
       <div class="row"><h3>Grounding result</h3><span class="chip ${verdict === "supported" ? "t" : "b"}">${esc(verdict)}</span>

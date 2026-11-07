@@ -106,13 +106,14 @@ class ScriptReq(BaseModel):
 # ---------------------------------------------------------------------------
 # helpers
 # ---------------------------------------------------------------------------
-def run(fn, *args, endpoint: str, **kwargs):
+def run(fn, *args, endpoint: str = "", **kwargs):
+    name = endpoint or getattr(fn, "__name__", "call")
     if not api.active:
         out = fn(*args, **kwargs)
-        log_usage(endpoint, "mock")
+        log_usage(name, "mock")
         return out
     out = fn(*args, **kwargs)
-    record_usage(endpoint, api.last_headers)
+    record_usage(name, api.last_headers)
     return out
 
 
@@ -128,7 +129,29 @@ def severity_label(score: int) -> str:
 
 
 def owner_label(key: str) -> str:
-    return {"hardware": "Hardware", "identity": "Identity", "finance": "Finance"}[key]
+    return {"hardware": "Hardware", "identity": "Identity", "finance": "Finance"}.get(key, "Unassigned")
+
+
+def normalize_grounding(out: dict) -> dict:
+    """Make live and offline grounding responses render the same way."""
+    claims = []
+    for cl in out.get("claims") or []:
+        score = cl.get("supported", cl.get("confidence", 0))
+        claims.append({
+            "claim": cl.get("claim", ""),
+            "confidence": float(score or 0),
+            "verdict": cl.get("verdict"),
+            "sources": list((cl.get("sources") or {}).keys()),
+        })
+    weakest = out.get("weakest_claim")
+    if isinstance(weakest, dict):
+        idx = weakest.get("index")
+        weakest = claims[idx]["claim"] if isinstance(idx, int) and 0 <= idx < len(claims) else "see claims"
+    return {**out, "claims": claims, "weakest_claim": weakest or "Every claim is supported.",
+            "unsupported_claims": [
+                claims[i]["claim"] if isinstance(i, int) and 0 <= i < len(claims) else str(i)
+                for i in out.get("unsupported_claims") or []
+            ]}
 
 
 # ---------------------------------------------------------------------------
@@ -168,9 +191,9 @@ def intake(req: Intake):
 
     injection = run(api.injection, safe, "user", 0.5) if api.active else mock_call(mock_injection, "injection", safe, "user")
     decision = run(api.decide, safe, DECISION_QUESTIONS) if api.active else mock_call(mock_decide, "decide", safe)
-    extraction = run(api.extract, safe, EXTRACT_FIELDS) if api.active else mock_call(mock_extract, "extract", raw)
+    extraction = run(api.extract, raw, EXTRACT_FIELDS) if api.active else mock_call(mock_extract, "extract", raw)
 
-    severity = int(decision.get("answers", {}).get("severity", {}).get("score", 0) or 0)
+    severity = min(3, max(0, round(decision.get("answers", {}).get("severity", {}).get("score", 0) or 0)))
     owner_key = decision.get("answers", {}).get("owner", {}).get("choice", "identity")
     blocked = injection.get("verdict") == "injection"
     ticket_id = "TCK-" + uuid.uuid4().hex[:6].upper()
@@ -211,7 +234,7 @@ def answer(req: Answer):
         out = run(api.grounding, f"Does the assistant answer follow from {row['id']} and the knowledge base?", docs, req.answer, 0.65)
     else:
         out = mock_call(mock_grounding, "grounding", req.answer, docs)
-    return {"ticket_id": row["id"], "answer": req.answer, "check": out}
+    return {"ticket_id": row["id"], "answer": req.answer, "check": normalize_grounding(out)}
 
 
 @app.post("/api/duplicates")

@@ -1,0 +1,198 @@
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.123)
+        by cloudflare-email.net (cloudflare) id CkUMofaCSYEp
+        for <clk3xgxoqvcx@m00n5ky.xyz>; Sat, 07 Nov 2026 07:35:41 +0000
+ARC-Seal: i=2; a=rsa-sha256; s=cf2024-1; d=cloudflare-email.net; cv=pass;
+	b=YfsoCS4LgeyEgr38Bs07qh6cSbOZOOsnwe392l9ddl/xfzJ/44+s85I5Xrs72/60mhsjwQJWf
+	CxbxnPkQTVwbtTORlv6CPwDtPGm/A2Lscgi1GKs5nQRUZJHHJJJ+/VTVTjNFGgz8JqdsjTNFpll
+	kVdOkxmWZnQzL39Yh/vKaokMj6eS8Kb79IpNdqjw5Mw0HL6h4bpNT5ejCH9vPL4AI+U01cqj6ga
+	TZ7Gsb6wyNvqQk92wvKvC2++JRgB0MdFv6Hby/9c2n6ZnPfchx5jwZhrbD+g6gzIsnJ7pV9X/8y
+	DZ2OILyg/2o0bHrQlsVoLR8cAhCkBuneCAo9dRByhkeA==;
+ARC-Message-Signature: i=2; a=rsa-sha256; s=cf2024-1; d=cloudflare-email.net; c=relaxed/relaxed;
+	h=Date:Subject:To:From:from:reply-to:cc:resent-date:resent-from:resent-to
+	:resent-cc:in-reply-to:references:list-id:list-help:list-subscribe
+	:list-post:list-owner:list-archive:otp-token:otp-token; t=1794036941;
+	x=1794641741; bh=oTF2bSKcVl7ZUPjfgbVZx5h21Iyw70SJnX8uQUN7vB0=; b=QmvneG0Mtn
+	7ALQO+yZB1qAX6URpNiYYcf1D4UZjXlswSbGJh33ls0M3pBdSYlchkcaz3oCo7Yh3x8RuwGbQOy
+	Wf2HwfFu6VCZ8qaWNW/4aDUrAQ9cJWNdVDaVEHtVM/QSJbBcj38v1UyMvZ8nVqZMgQv4dxUbDoM
+	clnv7pZyaBNHpR5XrzvyOiw828xbWHjNriXXpBNS0Yhemae8dyT+V3IMWiwb09ZnfDByLpV02jD
+	tIsfY/9zyuPIml+1Xda4H3keE9o9KbnPWKQ7WsRsIqI74esugjVNpyl4sMqGuD8PLRSDCshglSH
+	00hLVahUnXkdjs9DtuIpc3foi49XGDxA==;
+ARC-Authentication-Results: i=2; mx.cloudflare.net;
+	dkim=pass header.d=actionablescienceactionable.onmicrosoft.com header.s=selector2-actionablescienceactionable-onmicrosoft-com header.b=rRifVZNS;
+	dmarc=pass header.from=clocked.rezolve.ai policy.dmarc=reject;
+	spf=pass (mx.cloudflare.net: domain of postmaster@DM1PR04CU001.outbound.protection.outlook.com designates 52.101.61.123 as permitted sender) smtp.helo=DM1PR04CU001.outbound.protection.outlook.com;
+	spf=pass (mx.cloudflare.net: domain of noreply@clocked.rezolve.ai designates 52.101.61.123 as permitted sender) smtp.mailfrom=noreply@clocked.rezolve.ai;
+	arc=pass smtp.remote-ip=52.101.61.123
+Received-SPF: pass (mx.cloudflare.net: domain of noreply@clocked.rezolve.ai designates 52.101.61.123 as permitted sender)
+	receiver=mx.cloudflare.net; client-ip=52.101.61.123; envelope-from="noreply@clocked.rezolve.ai"; helo=DM1PR04CU001.outbound.protection.outlook.com;
+Authentication-Results: mx.cloudflare.net;
+	dkim=pass header.d=actionablescienceactionable.onmicrosoft.com header.s=selector2-actionablescienceactionable-onmicrosoft-com header.b=rRifVZNS;
+	dmarc=pass header.from=clocked.rezolve.ai policy.dmarc=reject;
+	spf=pass (mx.cloudflare.net: domain of postmaster@DM1PR04CU001.outbound.protection.outlook.com designates 52.101.61.123 as permitted sender) smtp.helo=DM1PR04CU001.outbound.protection.outlook.com;
+	spf=pass (mx.cloudflare.net: domain of noreply@clocked.rezolve.ai designates 52.101.61.123 as permitted sender) smtp.mailfrom=noreply@clocked.rezolve.ai;
+	arc=pass smtp.remote-ip=52.101.61.123
+X-CF-SpamH-Score: 0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L/7VWsCHhYW8fNSHzVMQTr6I91EAZF0xmV2P3QW9r7R/WCNHPcU+AT7zAsbzYq4GIy6rRPqs9KTdRQf4llBitpRvUj9+xLbSRqF550xh8zjZHe2000kpuzFdq6FdoQvd9PdPXdml88lphiK5/NgDYADSIm3uYOLRqdmZnSa4jqlKVACEEcZrYa6jCvTHJwMcuYtsizIbGvcayZEUrvAJ0o1rsE8WqWeO6koamC5Enm7SB71FnplQImv9cu5kfx4mZ6Ukztd89xYjdW7NzfeY/Rb3zCnI+rMDuBxgVaoAD6MtmYedmmc1FA853eM4kGUcjT1QaASJrkTZ3sqdC1QtFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oTF2bSKcVl7ZUPjfgbVZx5h21Iyw70SJnX8uQUN7vB0=;
+ b=llfWNIGlv5aIPmccLvV33Svc+XF4krAwDRiZgXgB7Dueg8SkebnjONYS/V+MwNlW4z33VnIyT6o4st0sC8qO25cq8YK4x/IQ5QPMg/n8k1bq56OXp025cWXsf1PBFtD/P8M5XFExJ7zRqeWlHTC+gPNqgnhgY6q5DuE1TtTlbfeihgfYFDVX7g0f7cixiZ5uaV5SFt/Q1wOsyiQIQAOLTfiEGJuRwhrcT0GV8EpZExVT+meQx+NtCr15ezZUDmXUG+DHxAGntSo/cDbPw/iGQtQSfVrl8x91ON2PxOcdl37Ve4KnUxzrlactxn7QtX7J581wqhoBn4+pTdWkaO4u5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=clocked.rezolve.ai; dmarc=pass action=none
+ header.from=clocked.rezolve.ai; dkim=pass header.d=clocked.rezolve.ai;
+ arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=actionablescienceActionable.onmicrosoft.com;
+ s=selector2-actionablescienceActionable-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oTF2bSKcVl7ZUPjfgbVZx5h21Iyw70SJnX8uQUN7vB0=;
+ b=rRifVZNSoKALuibdp74n0EOwvWefIsh+7zpz6jPAY+CwWHlAGpltva6cPlu/kOScj4KWzUtGNge2oWMRXjKp5GSDkpag9SARxTIuR3MIMGmxYfF4GSH56xhZO04J+nTIEWFhfr5oXvObtYX/jzBjquA8hReRB8crfAlV4z1kmVY=
+Received: from SA1PR13MB5564.namprd13.prod.outlook.com (2603:10b6:806:233::17)
+ by LV8PR13MB6742.namprd13.prod.outlook.com (2603:10b6:408:232::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 07:35:39 +0000
+Received: from SA1PR13MB5564.namprd13.prod.outlook.com
+ ([fe80::3010:938d:49e1:518b]) by SA1PR13MB5564.namprd13.prod.outlook.com
+ ([fe80::3010:938d:49e1:518b%6]) with mapi id 15.21.0592.010; Sat, 7 Nov 2026
+ 07:35:37 +0000
+From: "Clocked by rezolve.ai" <noreply@clocked.rezolve.ai>
+To: "clk3xgxoqvcx@m00n5ky.xyz" <clk3xgxoqvcx@m00n5ky.xyz>
+Subject: Verify your Clocked email
+Thread-Topic: Verify your Clocked email
+Thread-Index: AQHdboqVbrdkzzJvS0CHH4wpPO6k0A==
+Date: Sat, 7 Nov 2026 07:35:37 +0000
+Message-ID:
+ <SA1PR13MB55649617FA697D06E8E581C495752@SA1PR13MB5564.namprd13.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=clocked.rezolve.ai;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR13MB5564:EE_|LV8PR13MB6742:EE_
+x-ms-office365-filtering-correlation-id: 2ee5b8c5-c027-4e7d-553e-08df3ca1b794
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|13003099007|38070700021|260925021311599003|260925021911599003|260925022911599003|56012099006|261009223027099003|261022105027099003|261026140227099003|261028144727099003|261022113327099003|6143699003|18002099003|10067099003|8096899003;
+x-microsoft-antispam-message-info:
+ 0USpBGeGTa2lEPztK9XZheth8K4QThlMnHvbst6qUwDlpdCQZ/k013a2JDBIQX8L+S06IasnMsSvpLcL/qLN4lbB1W6kjGIt+CjAg4hkKisxt9fFY9tnGkMoYK/9e+RxOE+B8IDxGfZ7oDlvgLBQw1V9IgpRbLCAcNvp60OMTx5dyQDdet1lTsXNsrXQCG6PgJyNAfRXPeLTWu/NKIVt8WERaS6o9gOjNociIkVy82mh3p17+h8RXBeaVSR9Q0s4UMx6HlQm5jgUPLpHCiwme3uuAWrqjywB5fK2etebforqmoYyn2vTs9sIi879rZiUb9rS4bAbDW4sPAsGXs4crveOz9gMs1kUX2CHZaPYsiP5jvSh7y17YMAec2Th4nhaiuc6y/x+b7Ql2ACGkb5P2u6Z2Oz8FwjACTSj4DtcggVgksR6nOkZVd2A7OIjZusanjZ/yVrT+8nopRupChio/aKo64RqMY0x+QYxn2Z0aNdfRI+KemR7un5nbhs6WpLaiwjGVfau2+2Ob+ReISki22wwtbBW5MAaU9Dbrj9d5Inh8D9gQurxiKZiOWmcFq734x10PjTzpTzOucAeDFHiBDo+sOENKSGrhg7fJMR6VIN3E+aC5+GBCyDKiC+EJjh4KozpYmHHfzbb/GmsEMQQc953jEwceY56f3QW6BINwwk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR13MB5564.namprd13.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(13003099007)(38070700021)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006)(261009223027099003)(261022105027099003)(261026140227099003)(261028144727099003)(261022113327099003)(6143699003)(18002099003)(10067099003)(8096899003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?tC3Jze6YamsKNgWXyhZq4wPOE5ED5I2wd6Z4k1waPQbQpZA4Tyd2YD38OgYM?=
+ =?us-ascii?Q?sb8PtVxabz1z0mybY/UhQbBkIV4L++36StiQNsjw/MNt8zzG0D3qWNwqCQBB?=
+ =?us-ascii?Q?gkI7WtaZerM6yfXNmeUnQ0dS35nekD0eSvDMFN+/K0A7oLVb7UWN8YwnfRK3?=
+ =?us-ascii?Q?F83UhZoREMKNqBluGkHFAi7BCm4hXK1EzhyvfoHIQAW17Hhe+m1deSSiLzMC?=
+ =?us-ascii?Q?IGysdY9of7s3B7g5+FL5O/LW+g7qpAgaEp9ZuInhFGUgwFXpxGp5qR00DYY9?=
+ =?us-ascii?Q?U6343Kolr13ot0tm0KZoavr4abLWWnER2mpLTCZhj48VgfkopL/Qbr37jVSi?=
+ =?us-ascii?Q?3DF72fdAvxIYojEuxNoAqUnLUAvW56zwXhDxPSkuariYOZhzQSO17rQh04fT?=
+ =?us-ascii?Q?NGhP65XEVfGZya+urOkEXA0oSyGZX5YrLPvoCf7wD5A1FLAQVmq25COWDBel?=
+ =?us-ascii?Q?VqaaVFABWhmswkb1qIx48PKdUx4GIjgLVoshOKA8+lTJCHq9ja1kvr+NTGxU?=
+ =?us-ascii?Q?2WICf/BgxnkJtxoIA8h1jhvQNKvqrafDMBs9KuAcDiLJ6h0+kHBBmZX5Jyj4?=
+ =?us-ascii?Q?/kQ3epSQAOcs6S8uXj3EZrcaqN9/pmL0G90ue+EsHc0p/XzHgMUvbvuyerUE?=
+ =?us-ascii?Q?VRMv7eYx8+RJsprJZAh2IhkMH0Gep/foc2XZ8/4W2pcktwsMNppMpL83beMY?=
+ =?us-ascii?Q?18wVU3Q+8C4mHqOhzQXOH9u7LxjnbNS3XG8JnSDVIgdzvf8TGyeN9F7ttOOY?=
+ =?us-ascii?Q?pt/7qa0fmEgI2OHCswo2BRfiw4hzRqPLcdMfWQcN5IJgLbZfs89bS6bLAilT?=
+ =?us-ascii?Q?S2GPONIt26imMaPIXgVmuVWamxknqZDqyeGSXzsMrwZouxiCGIO78IpUGjBO?=
+ =?us-ascii?Q?+QL+2RvPlnd9t/vs6V5WqhAKNDM4/4vKnTSdZRKemgS0IRzQVP6TlSE3EbzF?=
+ =?us-ascii?Q?N+0DTQJJFEs8TcAld7dN3AnFwxmKqc/eEWmpzkXTURO1JzbQm33TdZVxEjsM?=
+ =?us-ascii?Q?DJmt+QURid3UFupY6e8CZvF1sJom41GIFI4rJWKwUoSk2dVGTyIqB/L5e9ET?=
+ =?us-ascii?Q?dOA/IQ4KorxFNJDA/EZc7vM7JPSB/WqOdVOoDed18pE6c4AtLgu4W2P7dplD?=
+ =?us-ascii?Q?Wywz1XojK6TURSJTdtLtNOCAgJK6AFKUSWt0COTWHFf43nrI06Uz+WSxjU5r?=
+ =?us-ascii?Q?pz73gjdZBYlF/1KTsgBQuFUtSWzTm+ks/6bb/Uxaw4Kl7WWMgUQW/uBD+xah?=
+ =?us-ascii?Q?mrLnT5EKEIfd91spK+4E2LfCYwKyAaI9H7fEkuFT6VI0vuHl7PP2QAJJlBLF?=
+ =?us-ascii?Q?J+rtKofynQDRnAMIdQRnbmwpJ46K6eOppKD4qU3sioUk93qkaKMoEkz50mIU?=
+ =?us-ascii?Q?OGNb9wuPtvGjwPIiB1Sh0HgNGVCXg4rucb6ckMBDKrT7dxTskjvqj3zzlr1K?=
+ =?us-ascii?Q?3o4L5laM7VWuNDnT7m7Owe8LQzk48Bdx5J3UWksgQ7a5Ao3vkh8BWeQAhJtT?=
+ =?us-ascii?Q?L0WZzuuqHXs3JIQrs5Nku+08D+VWyftqepgJ7YwCRuE6A0RZLkt0d7Mhx2Mb?=
+ =?us-ascii?Q?ucwSTsI1BaXuVesK42MSqPW0iwxRWk+soE+xW4oCFdpCPiYOh78QqRlYMlgZ?=
+ =?us-ascii?Q?dSM2j0w0JUM+gpkwOy5A8apEW2K36+sSVm9ZB2CqYyiA6E3oAd9Es0vY6ho0?=
+ =?us-ascii?Q?CmYfv/0exrl7qnlqjYaQK5xc5Xcj++9JnopZiOmox2SMq1UoRPuaGkggzXm7?=
+ =?us-ascii?Q?cL7xwK6WxR4ymix31nQBeIyBsysycCU=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_SA1PR13MB55649617FA697D06E8E581C495752SA1PR13MB5564namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: clocked.rezolve.ai
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR13MB5564.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ee5b8c5-c027-4e7d-553e-08df3ca1b794
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2026 07:35:37.6855
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 613cca5d-dd2e-4473-ab01-e1193e798037
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3f6pRoq5pLTMfJF4S1ulBHbN9TtRy5bN8nN+DHQm9acgt5zYGi1MVAkTqqDHg5gCEDKiZVC9c7giioCZfDHlx5CeCY/YKjFrA1ene2k2KYY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR13MB6742
+
+--_000_SA1PR13MB55649617FA697D06E8E581C495752SA1PR13MB5564namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+clocked.
+
+by rezolve.ai
+
+Verify your Clocked email
+
+Confirm your email address to activate your Clocked account.
+
+Verify email<https://auth.clocked.rezolve.ai/auth/v1/verify?token=3D11c7af5=
+9fbfedc413989b26def320d36eb364ae9d511c8721450532a&type=3Dsignup&redirect_to=
+=3Dhttps%3A%2F%2Fclocked.rezolve.ai%2Fauth%2Fcallback%3Fnext%3D%252Ffill%25=
+23playground>
+
+Or open this link:
+https://auth.clocked.rezolve.ai/auth/v1/verify?token=3D11c7af59fbfedc413989=
+b26def320d36eb364ae9d511c8721450532a&type=3Dsignup&redirect_to=3Dhttps%3A%2=
+F%2Fclocked.rezolve.ai%2Fauth%2Fcallback%3Fnext%3D%252Ffill%2523playground
+
+If you did not request this, you can ignore this email. This is an automate=
+d message; replies are not monitored.
+
+--_000_SA1PR13MB55649617FA697D06E8E581C495752SA1PR13MB5564namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html>
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body style=3D"margin:0;background:#f6f7f1;font-family:Arial,sans-serif;col=
+or:#20261c">
+<div style=3D"max-width:520px;margin:36px auto;padding:32px;background:#fff=
+;border:1px solid #dce1d2;border-radius:10px">
+<p style=3D"font-size:28px;font-weight:700;margin:0">clocked.</p>
+<p style=3D"color:#68765d;font-size:12px;margin-top:5px">by rezolve.ai</p>
+<h1 style=3D"font-size:23px;margin-top:32px">Verify your Clocked email</h1>
+<p>Confirm your email address to activate your Clocked account.</p>
+<p style=3D"margin:28px 0"><a href=3D"https://auth.clocked.rezolve.ai/auth/=
+v1/verify?token=3D11c7af59fbfedc413989b26def320d36eb364ae9d511c8721450532a&=
+amp;type=3Dsignup&amp;redirect_to=3Dhttps%3A%2F%2Fclocked.rezolve.ai%2Fauth=
+%2Fcallback%3Fnext%3D%252Ffill%2523playground" style=3D"background:#20261c;=
+color:#fff;padding:14px 22px;border-radius:6px;text-decoration:none;display=
+:inline-block">Verify
+ email</a></p>
+<p style=3D"font-size:12px;overflow-wrap:anywhere">Or open this link:<br>
+<a href=3D"https://auth.clocked.rezolve.ai/auth/v1/verify?token=3D11c7af59f=
+bfedc413989b26def320d36eb364ae9d511c8721450532a&amp;type=3Dsignup&amp;redir=
+ect_to=3Dhttps%3A%2F%2Fclocked.rezolve.ai%2Fauth%2Fcallback%3Fnext%3D%252Ff=
+ill%2523playground">https://auth.clocked.rezolve.ai/auth/v1/verify?token=3D=
+11c7af59fbfedc413989b26def320d36eb364ae9d511c8721450532a&amp;type=3Dsignup&=
+amp;redirect_to=3Dhttps%3A%2F%2Fclocked.rezolve.ai%2Fauth%2Fcallback%3Fnext=
+%3D%252Ffill%2523playground</a></p>
+<p style=3D"font-size:13px;color:#68765d;margin-top:30px">If you did not re=
+quest this, you can ignore this email. This is an automated message; replie=
+s are not monitored.</p>
+</div>
+</body>
+</html>
+
+--_000_SA1PR13MB55649617FA697D06E8E581C495752SA1PR13MB5564namp_--
