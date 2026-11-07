@@ -6,7 +6,7 @@ All numbers below come from commands run in this workspace on 2026-11-07 (WIB) a
 ## 1. Syntax
 
 ```
-$ python3 -m py_compile app.py clocked.py fixtures.py tests/test_contract.py
+$ python3 -m py_compile app.py clocked.py fixtures.py tests/test_contract.py tests/test_dossier.py
 COMPILE_OK
 ```
 
@@ -15,6 +15,9 @@ COMPILE_OK
 ```
 $ python3 tests/test_contract.py
 CONTRACT OK · headers, payload keys, idempotency, credit header
+
+$ python3 tests/test_dossier.py
+DOSSIER OK · signed, verified, tamper detected, canonical hash stable
 ```
 
 The stub asserts:
@@ -88,9 +91,31 @@ Screen shot of the live console: `docs/screenshots/04-live-verified.png`.
 The first live intake failed with a `run()` signature error; fixed, then 14 requests succeeded.
 `anonymize` is not a boolean on the wire — it is the string `redact` (the API returns 422 otherwise).
 
-## 7. Demo seed race
+## 7. Signed dossier (live)
+
+Run on 2026-11-07 at 18:45 WIB against `http://127.0.0.1:8777`. The dossier call spent 15 credits:
+grounding `5`, compare `8`, rerank `2`, total `$0.002988`; server state moved from 44/119/$0.0237 to
+47/134/$0.0267. Response: `DSH-D41B4E55D1`, sha256
+`0275a1267f4b126eac8e3a0e02a926fa4bc23efebeb900ea22ae6eefe92d4686`. Grounding returned two claims
+at `0.0033` / `0.0050`; compare returned 10 pairs including `TCK-60AC0D ↔ TCK-447B42` at `1.00`
+and `TCK-1550FE ↔ TCK-DED498` at `0.70`; rerank returned `kb-spill` `0.0598`.
+
+`/api/dossiers/DSH-D41B4E55D1/verify` returned `ok: true`, `changed: []`. The test suite then
+mutates the stored answer in a temporary database and gets `ok: false`, so the receipt detects
+editing after signing. Raw payload: `evidence/dossier_live.json`.
+
+Screenshot of the verified receipt: `docs/screenshots/06-dossier-verify.png`.
+
+## 8. Demo seed race
 
 Clicking **Load demo** twice in parallel could generate two workers that both saw an empty
 inbox; one insert then lost a `UNIQUE` race on the ticket id and the old process exited.
 A module-level `SEED_LOCK` now serialises seeding and a losing insert is skipped instead of
 aborting the request. `/api/demo/fill` returns `{"skipped": true}` once the inbox has any ticket.
+
+### Timestamp correction
+
+The host runs UTC. Earlier rows were built with `time.strftime` and suffixed `+07:00`, so they
+labelled UTC wall-clock as WIB — seven hours early. New rows use `now_wib()` (`Asia/Jakarta` via
+fixed `+07:00`), and the nine ticket rows, 47 usage rows and one dossier receipt were moved forward
+seven hours. The dossier payload hash does not cover `created_at`, so `verify` still returns `ok`.

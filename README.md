@@ -27,7 +27,9 @@ inbound ──► PII (redact) ──► Guard (injection) ──► Decide (sev
 | ![Blocked ticket](docs/screenshots/01-guard-blocked.png) | ![Grounding](docs/screenshots/02-grounding.png) |
 | Guard isolates an instruction-override ticket | Per-claim grounding on a drafted answer |
 | ![Duplicates](docs/screenshots/03-duplicates.png) | ![Live](docs/screenshots/04-live-verified.png) |
-| Compare flags the near-duplicate payroll reports | Live console: 14 calls, 41 credits, $0.0082 |
+| Compare flags the near-duplicate payroll reports | Live console: live mode, real credit accounting |
+| ![Dossier](docs/screenshots/06-dossier-verify.png) | ![Submission](docs/screenshots/05-submission-saved.png) |
+| Dossier re-verified after storage | Clocked entry saved with eight endpoints selected |
 
 ## What it demonstrates
 
@@ -41,6 +43,7 @@ inbound ──► PII (redact) ──► Guard (injection) ──► Decide (sev
 | `compare` | Near-duplicate payroll reports are merged into one incident instead of triaged twice |
 | `rerank` | Knowledge-base lookup returns `use` / `expand` / `skip` actions with relevance scores |
 | `script` | A change request containing EDR disabling is stopped before anyone runs it |
+| `dossier` | Grounding, compare and rerank run together; the full payload is SHA-256 signed and can be reverified after storage |
 
 All eight endpoints drive the UI. `fill` and `pipeline` are available in the client for the same
 model family (record synthesis, and an eight-step one-request flow) but are not on the main path.
@@ -74,6 +77,7 @@ clocked.py              Clocked client: Bearer + Idempotency-Key + retry, no key
 fixtures.py             synthetic tickets, KB passages, mock model for offline demo
 static/index.html       single-page console (no build step, no CDN)
 tests/test_contract.py  stub server asserts headers, payload keys, idempotency reuse
+tests/test_dossier.py   signed dossier, verify endpoint, tamper detection
 data/tickets.sqlite     created at runtime, holds redacted text only
 ```
 
@@ -93,24 +97,34 @@ shows confidence next to every label, because a rigid boolean hides the cases th
 **Failures are visible.** Anything that cannot reach Clocked returns the upstream error instead of
 a fake success; the mode badge is the first thing on the toolbar.
 
+**The dossier is signed, not asserted.** `/api/dossier` hashes the exact grounding, compare, rerank
+and call metadata with canonical JSON, stores the receipt, and exposes `/verify` so a later reader
+can prove the payload was not edited after the fact. The UI shows `INTACT` or names the changed
+section. This is integrity for the displayed evidence, not a claim that the upstream model is
+truthful.
+
 ## Cost
 
 One credit equals 25 ms of model time, minimum one credit per request. A typical intake is
 `pii` + `injection` + `decide` + `extract`; an answer check adds `grounding`, a duplicate sweep adds
-`compare`. The header exposes the actual charge per call, so the running total in the toolbar is the
-real bill, not an estimate.
+`compare`, and a signed dossier adds `grounding` + `compare` + `rerank` in one pass. The header
+exposes the actual charge per call, so the running total in the toolbar is the real bill, not an
+estimate.
 
 ## Tests
 
 ```bash
 python tests/test_contract.py      # wire contract against a local stub
+python tests/test_dossier.py       # signed payload, verify, tamper detection
 python -m uvicorn app:app --port 8777
 ```
 
 The contract test asserts the required `Authorization`, a single `Idempotency-Key` reused across
 retries, the documented payload keys for `pii`, `injection`, `decide`, `grounding`, `rerank` and
 `script`, and that the credit/cost headers are surfaced. Four end-to-end runs of the intake also
-pass 5/5 with identical output.
+pass 5/5 with identical output. The dossier test runs against a throwaway database, signs a live-shaped
+payload, proves the receipt, mutates the stored answer and proves the tamper is detected without
+spending credits.
 
 ## Security
 

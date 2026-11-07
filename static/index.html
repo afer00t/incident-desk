@@ -41,6 +41,8 @@
   .tabs button.on{color:var(--txt);border-bottom-color:var(--acc)}
   .card{background:linear-gradient(180deg,#10151c,#0d1117);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
   .card h3{margin:0 0 8px;font-size:12px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+  .card h4{margin:8px 0 6px;font-size:11.5px;letter-spacing:.08em;color:#b9c8d8;text-transform:uppercase}
+  .hash{font:11.5px/1.4 ui-monospace,monospace;color:#9fb0c4;overflow-wrap:anywhere}
   .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
   .kv{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed #1d2632;font-size:13px}
   .kv:last-child{border-bottom:0}
@@ -63,6 +65,8 @@
     main{max-height:none}
     header{gap:8px;flex-wrap:wrap}
     .metric{font-size:11px}
+    .tabs{flex-wrap:wrap;border-bottom:0;gap:2px}
+    .tabs button{border-bottom:1px solid var(--line);padding:8px 9px;font-size:12px}
   }
 </style>
 </head>
@@ -89,6 +93,7 @@
     <div class="tabs">
       <button data-tab="intake" class="on">Intake</button>
       <button data-tab="answer">Answer check</button>
+      <button data-tab="dossier">Dossier</button>
       <button data-tab="dupes">Duplicates</button>
       <button data-tab="kb">Knowledge</button>
       <button data-tab="script">Script guard</button>
@@ -117,6 +122,21 @@
         </div>
       </div>
       <div id="answer-result"></div>
+    </section>
+
+    <section id="tab-dossier" hidden>
+      <div class="card">
+        <h3>Verification dossier</h3>
+        <div class="muted" style="margin-bottom:8px">One pass runs grounding, compare and rerank, then signs the payload. The receipt can be rechecked after storage.</div>
+        <textarea id="dossier-answer" placeholder="Paste the exact assistant answer to verify…"></textarea>
+        <input id="dossier-q" placeholder="Rerank query (default: ticket text)" style="width:100%;margin-top:8px;background:#0c1016;border:1px solid var(--line);border-radius:9px;padding:10px;color:var(--txt)">
+        <div class="row" style="margin-top:10px">
+          <button class="primary" id="dossier-btn">Build + sign</button>
+          <button id="dossier-last">Open last signed</button>
+          <span id="dossier-ticket" class="muted"></span>
+        </div>
+      </div>
+      <div id="dossier-result"></div>
     </section>
 
     <section id="tab-dupes" hidden>
@@ -200,6 +220,7 @@ function renderList() {
   box.querySelectorAll(".ticket").forEach((el) => el.addEventListener("click", () => {
     STATE.selected = el.dataset.id;
     document.getElementById("answer-ticket").textContent = el.dataset.id;
+    document.getElementById("dossier-ticket").textContent = el.dataset.id;
     renderList();
     renderDetail(el.dataset.id);
   }));
@@ -262,6 +283,49 @@ function renderClaims(check) {
     </div>`;
 }
 
+function shortHash(h) {
+  const s = String(h || "");
+  return s.length > 20 ? s.slice(0, 16) + "…" + s.slice(-4) : s;
+}
+
+function renderDossier(r) {
+  const g = r.grounding || {}, c = r.compare || {}, k = r.rerank || {}, meta = r.meta || {};
+  const claims = g.claims || [];
+  const pairs = (c.pairs || []).filter((p) => p.relation !== "unrelated").slice(0, 6);
+  const results = (k.results || []).slice(0, 6);
+  const verdict = g.verdict || "—";
+  const calls = Object.entries(meta).map(([name, m]) => `
+    <div class="kv"><span>${esc(name)}</span><span>${esc(m.ms ?? 0)} ms · ${Number(m.credits || 0).toFixed(2)} cr${m.request_id ? " · " + esc(String(m.request_id).slice(0, 12)) : ""}</span></div>`).join("");
+  return `
+    <div class="card">
+      <div class="row"><h3>Dossier ${esc(r.id)}</h3><span class="chip ${verdict === "supported" ? "t" : "b"}">${esc(verdict)}</span><span class="tag">${esc(r.mode)}</span></div>
+      <div class="${claims.length && (g.unsupported_claims || []).length ? "warnbox" : "okbox"}" style="margin-top:8px">
+        ${claims.length} claim(s) · grounded ${Number(g.grounded || 0).toFixed(2)} · weakest: ${esc(g.weakest_claim || "—")}
+      </div>
+      <div class="grid2" style="margin-top:12px">
+        <div>
+          <h4>Grounding</h4>
+          ${claims.slice(0, 8).map((cl) => `<div class="claim"><div class="row" style="justify-content:space-between"><span>${esc(cl.claim || "")}</span><span class="muted">${Number(cl.confidence ?? 0).toFixed(2)}</span></div>
+          <div class="bar"><i style="width:${Math.round(Number(cl.confidence || 0) * 100)}%"></i></div></div>`).join("") || '<div class="muted">no claims</div>'}
+        </div>
+        <div>
+          <h4>Compare</h4>
+          ${(pairs.length ? pairs : [{ a: "—", b: "—", relation: "unrelated", related: 0 }]).map((p) => `<div class="kv"><span>${esc(p.a)} ↔ ${esc(p.b)}</span><span>${esc(p.relation)} · ${Number(p.related || 0).toFixed(2)}</span></div>`).join("")}
+        </div>
+      </div>
+      <h4 style="margin-top:12px">Reranked passages</h4>
+      ${(results.length ? results : [{ id: "—", action: "skip", relevance_score: 0 }]).map((x) => `<div class="kv"><span>${esc(x.action && x.action.toUpperCase())} · ${esc(x.id)}</span><span>${Number(x.relevance_score || 0).toFixed(2)}</span></div>`).join("")}
+      <div class="card" style="margin-top:12px">
+        <h4>Integrity receipt</h4>
+        <div class="kv"><span>ticket</span><span>${esc(r.ticket_id)}</span></div>
+        <div class="kv"><span>created</span><span>${esc(r.receipt?.created_at || "—")}</span></div>
+        <div class="kv"><span>sha256</span><span title="${esc(r.receipt?.payload_sha256 || "")}">${esc(shortHash(r.receipt?.payload_sha256))}</span></div>
+        ${calls}
+        <div style="margin-top:10px"><button id="dossier-verify" class="primary">Verify integrity</button><div id="dossier-verify-result"></div></div>
+      </div>
+    </div>`;
+}
+
 document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => {
   document.querySelectorAll(".tabs button").forEach((x) => x.classList.toggle("on", x === b));
   document.querySelectorAll("main section").forEach((s) => (s.hidden = true));
@@ -305,6 +369,46 @@ document.getElementById("answer-btn").onclick = async () => {
   if (!answer) return toast("paste the answer", true);
   const r = await api("/api/answer", { ticket_id: STATE.selected, answer });
   document.getElementById("answer-result").innerHTML = renderClaims(r);
+};
+
+document.getElementById("dossier-btn").onclick = async () => {
+  if (!STATE.selected) return toast("select a ticket first", true);
+  const answer = document.getElementById("dossier-answer").value.trim();
+  if (!answer) return toast("paste the exact answer", true);
+  const btn = document.getElementById("dossier-btn");
+  btn.disabled = true;
+  try {
+    const r = await api("/api/dossier", {
+      ticket_id: STATE.selected, answer,
+      query: document.getElementById("dossier-q").value.trim(),
+    });
+    if (r.error) return toast(r.error, true);
+    document.getElementById("dossier-result").innerHTML = renderDossier(r);
+    bindDossierVerify(r);
+  } finally {
+    btn.disabled = false;
+  }
+};
+
+function bindDossierVerify(r) {
+  const verify = document.getElementById("dossier-verify");
+  if (!verify) return;
+  verify.onclick = async () => {
+    const box = document.getElementById("dossier-verify-result");
+    const v = await fetch("/api/dossiers/" + encodeURIComponent(r.id) + "/verify").then((x) => x.json());
+    box.innerHTML = v.ok
+      ? `<div class="okbox">INTACT · ${esc(shortHash(r.receipt.payload_sha256))}</div>`
+      : `<div class="warnbox">TAMPERED · changed: ${esc((v.changed || []).join(", ") || "root hash")}</div>`;
+  };
+}
+
+document.getElementById("dossier-last").onclick = async () => {
+  const id = STATE.latest_dossier?.id;
+  if (!id) return toast("no signed dossier yet", true);
+  const d = await fetch("/api/dossiers/" + encodeURIComponent(id)).then((x) => x.json());
+  if (d.error) return toast(d.error, true);
+  document.getElementById("dossier-result").innerHTML = renderDossier(d);
+  bindDossierVerify(d);
 };
 
 document.getElementById("dupe-btn").onclick = async () => {

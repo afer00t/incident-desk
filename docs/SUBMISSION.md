@@ -29,7 +29,7 @@ so the entry also demonstrates breadth across all three groups).
 | 7 | `rerank` | Knowledge lookup returns `use` / `expand` / `skip` with relevance scores |
 | 8 | `script` | Inspects change requests and stops EDR-disabling or credential-dumping scripts |
 
-**Live proof (2026-11-07, real key, 44 requests, 119 credits, $0.0237)**
+**Live proof (2026-11-07, real key, 47 requests, 134 credits, $0.0267)**
 
 | Probe | Live result |
 |---|---|
@@ -40,6 +40,7 @@ so the entry also demonstrates breadth across all three groups).
 | Factual draft | `grounded` 0.91 |
 | Rerank of "laptop will not boot" | `kb-laptop` → `use` 0.99; `kb-vpn` → `skip` 0.0 |
 | Script `Set-MpPreference -DisableRealtimeMonitoring $true` | `malicious` 0.997, `security blinding or EDR evasion` |
+| Signed dossier `DSH-D41B4E55D1` | sha256 `0275a126…4686`; grounding 2 claims, compare 10 pairs, rerank 5 passages; `/verify` returns `ok`, `changed: []` |
 
 **Why it matters**
 
@@ -55,6 +56,8 @@ verification in front of the customer.
 - Redaction enforced at the storage schema level, not by convention
 - Guard result gates severity and priority, so a blocked ticket can never be queued
 - Contract test that pins the documented wire format against a stub server
+- Dossier endpoint that signs grounding + compare + rerank with SHA-256 and verifies it after storage
+- Tamper test and live `INTACT` receipt (`06-dossier-verify.png`)
 
 **Team**
 
@@ -72,6 +75,8 @@ data. No API key is committed; the app reads `CLOCKED_API_KEY` from the environm
 - The offline model is a keyword implementation and is labelled `MOCK` in the toolbar so it is never
   mistaken for a live Clocked result.
 - Live responses were sampled once per endpoint; this is evidence of correctness, not a benchmark.
+- The dossier receipt proves the stored payload was not edited after signing. It does not prove the
+  upstream model's claims are true; grounding scores remain the evidence for that.
 
 **Submission:** saved from the Clocked account on 2026-11-07, before 17:36 WIB. The entry selects Decide, Extract,
 PII, injection guard, script inspect, grounding, Compare and Rerank (eight endpoints; no Fill). Team:

@@ -1,0 +1,411 @@
+{
+  "id": "DSH-D41B4E55D1",
+  "mode": "live",
+  "ticket_id": "TCK-E236C9",
+  "answer": "Sp.slots are stale because the extraction service is reading a stale cache. Restart the extractor and verify the feed.",
+  "query": "Sp.slots not refreshing on the extraction server since 06:00 UTC.",
+  "grounding": {
+    "model": "clocked-1.0",
+    "grounded": 0.0039,
+    "ungrounded": 0.9961,
+    "verdict": "ungrounded",
+    "threshold": 0.65,
+    "instructions_used": "default",
+    "documents": [
+      {
+        "id": "kb-laptop",
+        "share": 0,
+        "share_of_answer": 0.0008,
+        "claims": []
+      },
+      {
+        "id": "kb-refund",
+        "share": 0,
+        "share_of_answer": 0.0008,
+        "claims": []
+      },
+      {
+        "id": "TCK-E236C9",
+        "share": 0,
+        "share_of_answer": 0.0007,
+        "claims": []
+      },
+      {
+        "id": "kb-spill",
+        "share": 0,
+        "share_of_answer": 0.0006,
+        "claims": []
+      },
+      {
+        "id": "kb-payroll",
+        "share": 0,
+        "share_of_answer": 0.0006,
+        "claims": []
+      },
+      {
+        "id": "kb-vpn",
+        "share": 0,
+        "share_of_answer": 0.0004,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Sp.slots are stale because the extraction service is reading a stale cache.",
+        "confidence": 0.0033,
+        "verdict": "not_stated",
+        "sources": [
+          "kb-vpn",
+          "kb-spill",
+          "kb-payroll",
+          "kb-laptop",
+          "kb-refund",
+          "TCK-E236C9"
+        ]
+      },
+      {
+        "claim": "Restart the extractor and verify the feed.",
+        "confidence": 0.005,
+        "verdict": "not_stated",
+        "sources": [
+          "kb-vpn",
+          "kb-spill",
+          "kb-payroll",
+          "kb-laptop",
+          "kb-refund",
+          "TCK-E236C9"
+        ]
+      }
+    ],
+    "unsupported_claims": [
+      "Sp.slots are stale because the extraction service is reading a stale cache.",
+      "Restart the extractor and verify the feed."
+    ],
+    "not_claims": [],
+    "weakest_claim": "Sp.slots are stale because the extraction service is reading a stale cache.",
+    "answers_question": 0.8469372234123504,
+    "timing": {
+      "read_ms": 164,
+      "total_ms": 116
+    }
+  },
+  "compare": {
+    "verdict": "duplicates",
+    "pairs": [
+      {
+        "a": "TCK-E236C9",
+        "b": "TCK-9D825E",
+        "relation": "unrelated",
+        "related": 0.005
+      },
+      {
+        "a": "TCK-E236C9",
+        "b": "TCK-05B46E",
+        "relation": "unrelated",
+        "related": 0.0042
+      },
+      {
+        "a": "TCK-E236C9",
+        "b": "TCK-415A05",
+        "relation": "unrelated",
+        "related": 0.0045
+      },
+      {
+        "a": "TCK-E236C9",
+        "b": "TCK-78C5F5",
+        "relation": "unrelated",
+        "related": 0.0133
+      },
+      {
+        "a": "TCK-E236C9",
+        "b": "TCK-1550FE",
+        "relation": "unrelated",
+        "related": 0.0052
+      },
+      {
+        "a": "TCK-E236C9",
+        "b": "TCK-DED498",
+        "relation": "unrelated",
+        "related": 0.005
+      },
+      {
+        "a": "TCK-E236C9",
+        "b": "TCK-60AC0D",
+        "relation": "unrelated",
+        "related": 0.0038
+      },
+      {
+        "a": "TCK-E236C9",
+        "b": "TCK-447B42",
+        "relation": "unrelated",
+        "related": 0.0063
+      },
+      {
+        "a": "TCK-9D825E",
+        "b": "TCK-05B46E",
+        "relation": "unrelated",
+        "related": 0.0049
+      },
+      {
+        "a": "TCK-9D825E",
+        "b": "TCK-415A05",
+        "relation": "unrelated",
+        "related": 0.0041
+      },
+      {
+        "a": "TCK-9D825E",
+        "b": "TCK-78C5F5",
+        "relation": "unrelated",
+        "related": 0.0042
+      },
+      {
+        "a": "TCK-9D825E",
+        "b": "TCK-1550FE",
+        "relation": "unrelated",
+        "related": 0.0056
+      },
+      {
+        "a": "TCK-9D825E",
+        "b": "TCK-DED498",
+        "relation": "unrelated",
+        "related": 0.0053
+      },
+      {
+        "a": "TCK-9D825E",
+        "b": "TCK-60AC0D",
+        "relation": "unrelated",
+        "related": 0.0054
+      },
+      {
+        "a": "TCK-9D825E",
+        "b": "TCK-447B42",
+        "relation": "unrelated",
+        "related": 0.0056
+      },
+      {
+        "a": "TCK-05B46E",
+        "b": "TCK-415A05",
+        "relation": "unrelated",
+        "related": 0.0039
+      },
+      {
+        "a": "TCK-05B46E",
+        "b": "TCK-78C5F5",
+        "relation": "unrelated",
+        "related": 0.005
+      },
+      {
+        "a": "TCK-05B46E",
+        "b": "TCK-1550FE",
+        "relation": "unrelated",
+        "related": 0.0049
+      },
+      {
+        "a": "TCK-05B46E",
+        "b": "TCK-DED498",
+        "relation": "unrelated",
+        "related": 0.0062
+      },
+      {
+        "a": "TCK-05B46E",
+        "b": "TCK-60AC0D",
+        "relation": "unrelated",
+        "related": 0.0049
+      },
+      {
+        "a": "TCK-05B46E",
+        "b": "TCK-447B42",
+        "relation": "unrelated",
+        "related": 0.007
+      },
+      {
+        "a": "TCK-415A05",
+        "b": "TCK-78C5F5",
+        "relation": "unrelated",
+        "related": 0.0041
+      },
+      {
+        "a": "TCK-415A05",
+        "b": "TCK-1550FE",
+        "relation": "unrelated",
+        "related": 0.0038
+      },
+      {
+        "a": "TCK-415A05",
+        "b": "TCK-DED498",
+        "relation": "unrelated",
+        "related": 0.0038
+      },
+      {
+        "a": "TCK-415A05",
+        "b": "TCK-60AC0D",
+        "relation": "unrelated",
+        "related": 0.004
+      },
+      {
+        "a": "TCK-415A05",
+        "b": "TCK-447B42",
+        "relation": "unrelated",
+        "related": 0.0064
+      },
+      {
+        "a": "TCK-78C5F5",
+        "b": "TCK-1550FE",
+        "relation": "unrelated",
+        "related": 0.0038
+      },
+      {
+        "a": "TCK-78C5F5",
+        "b": "TCK-DED498",
+        "relation": "unrelated",
+        "related": 0.0052
+      },
+      {
+        "a": "TCK-78C5F5",
+        "b": "TCK-60AC0D",
+        "relation": "unrelated",
+        "related": 0.0058
+      },
+      {
+        "a": "TCK-78C5F5",
+        "b": "TCK-447B42",
+        "relation": "unrelated",
+        "related": 0.0057
+      },
+      {
+        "a": "TCK-1550FE",
+        "b": "TCK-DED498",
+        "relation": "overlapping",
+        "related": 0.7006
+      },
+      {
+        "a": "TCK-1550FE",
+        "b": "TCK-60AC0D",
+        "relation": "unrelated",
+        "related": 0.0051
+      },
+      {
+        "a": "TCK-1550FE",
+        "b": "TCK-447B42",
+        "relation": "unrelated",
+        "related": 0.006
+      },
+      {
+        "a": "TCK-DED498",
+        "b": "TCK-60AC0D",
+        "relation": "unrelated",
+        "related": 0.0076
+      },
+      {
+        "a": "TCK-DED498",
+        "b": "TCK-447B42",
+        "relation": "unrelated",
+        "related": 0.0071
+      },
+      {
+        "a": "TCK-60AC0D",
+        "b": "TCK-447B42",
+        "relation": "same",
+        "related": 0.9984
+      }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": []
+  },
+  "rerank": {
+    "results": [
+      {
+        "id": "kb-spill",
+        "action": "skip",
+        "relevance_score": 0.0598
+      },
+      {
+        "id": "kb-payroll",
+        "action": "skip",
+        "relevance_score": 0.0033
+      },
+      {
+        "id": "kb-vpn",
+        "action": "skip",
+        "relevance_score": 0.0019
+      },
+      {
+        "id": "kb-laptop",
+        "action": "skip",
+        "relevance_score": 0.0018
+      },
+      {
+        "id": "kb-refund",
+        "action": "skip",
+        "relevance_score": 0.0011
+      }
+    ]
+  },
+  "meta": {
+    "grounding": {
+      "endpoint": "grounding",
+      "ms": 348.1,
+      "credits": 5.0,
+      "cost_usd": 0.000996,
+      "request_id": null
+    },
+    "compare": {
+      "endpoint": "compare",
+      "ms": 298.5,
+      "credits": 8.0,
+      "cost_usd": 0.001594,
+      "request_id": null
+    },
+    "rerank": {
+      "endpoint": "rerank",
+      "ms": 139.9,
+      "credits": 2.0,
+      "cost_usd": 0.000398,
+      "request_id": null
+    }
+  },
+  "receipt": {
+    "id": "DSH-D41B4E55D1",
+    "created_at": "2026-11-07T18:45:34+07:00",
+    "mode": "live",
+    "payload_sha256": "0275a1267f4b126eac8e3a0e02a926fa4bc23efebeb900ea22ae6eefe92d4686",
+    "sections": {
+      "grounding": "1c6789a33d6c4edc6594cbcd80489655f19377812faac2a0e25933b42bf32b54",
+      "compare": "b5cc4dee8a6d34676a7d8ab1a99ac1b568b765ddc7bf8cf55fba268f39ff3ec1",
+      "rerank": "f94b77f6f196e55786f2125635d2e4192f731efb1d887367e42692bd2357e031",
+      "meta": "b6b74a31bc0698a9de891151eb71a79d69fd5f4b59721c753ef110b913c7a408"
+    }
+  },
+  "verification": {
+    "ok": true,
+    "id": "DSH-D41B4E55D1",
+    "mode": "live",
+    "created_at": "2026-11-07T18:45:34+07:00",
+    "stored_sha256": "0275a1267f4b126eac8e3a0e02a926fa4bc23efebeb900ea22ae6eefe92d4686",
+    "computed_sha256": "0275a1267f4b126eac8e3a0e02a926fa4bc23efebeb900ea22ae6eefe92d4686",
+    "sections": {
+      "grounding": {
+        "ok": true,
+        "stored": "1c6789a33d6c4edc6594cbcd80489655f19377812faac2a0e25933b42bf32b54",
+        "computed": "1c6789a33d6c4edc6594cbcd80489655f19377812faac2a0e25933b42bf32b54"
+      },
+      "compare": {
+        "ok": true,
+        "stored": "b5cc4dee8a6d34676a7d8ab1a99ac1b568b765ddc7bf8cf55fba268f39ff3ec1",
+        "computed": "b5cc4dee8a6d34676a7d8ab1a99ac1b568b765ddc7bf8cf55fba268f39ff3ec1"
+      },
+      "rerank": {
+        "ok": true,
+        "stored": "f94b77f6f196e55786f2125635d2e4192f731efb1d887367e42692bd2357e031",
+        "computed": "f94b77f6f196e55786f2125635d2e4192f731efb1d887367e42692bd2357e031"
+      },
+      "meta": {
+        "ok": true,
+        "stored": "b6b74a31bc0698a9de891151eb71a79d69fd5f4b59721c753ef110b913c7a408",
+        "computed": "b6b74a31bc0698a9de891151eb71a79d69fd5f4b59721c753ef110b913c7a408"
+      }
+    },
+    "changed": []
+  }
+}
