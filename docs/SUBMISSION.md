@@ -12,9 +12,9 @@ against the ticket and the knowledge base.
 **Category entered:** Verify / Compare / Rerank (with Decide, Protect and Inspect in the same flow,
 so the entry also demonstrates breadth across all three groups).
 
-**Demo URL:** <DEMO_URL>
+**Demo URL:** https://subsidiary-suited-alloy-science.trycloudflare.com
 
-**Repository:** <REPO_URL>
+**Repository:** https://github.com/afer00t/incident-desk
 
 **How Clocked is used**
 
@@ -28,6 +28,18 @@ so the entry also demonstrates breadth across all three groups).
 | 6 | `compare` | Merges near-duplicate tickets, flags related and conflicting pairs |
 | 7 | `rerank` | Knowledge lookup returns `use` / `expand` / `skip` with relevance scores |
 | 8 | `script` | Inspects change requests and stops EDR-disabling or credential-dumping scripts |
+
+**Live proof (2026-11-07, real key, 44 requests, 119 credits, $0.0237)**
+
+| Probe | Live result |
+|---|---|
+| Ticket with PII | `anonymized_text` keeps `()` where name/email were; entities still resolve for triage |
+| "Ignore all previous instructions…" ticket | `injection 0.996`, category `instruction override`, status `blocked`, priority 0 |
+| Laptop that will not boot | severity `2.988` → `Critical`, owner `hardware` confidence `0.9647` |
+| Answer draft contradicted by the ticket | `ungrounded` 0.019, weakest claim surfaced first |
+| Factual draft | `grounded` 0.91 |
+| Rerank of "laptop will not boot" | `kb-laptop` → `use` 0.99; `kb-vpn` → `skip` 0.0 |
+| Script `Set-MpPreference -DisableRealtimeMonitoring $true` | `malicious` 0.997, `security blinding or EDR evasion` |
 
 **Why it matters**
 
@@ -55,7 +67,8 @@ data. No API key is committed; the app reads `CLOCKED_API_KEY` from the environm
 
 **Known limits**
 
-- Live calls were not exercised from this network because the signup endpoint rate-limited every
-  attempt; the wire contract is covered by the stub test instead.
+- The demo link is a temporary Cloudflare quick tunnel (`trycloudflare.com`) tied to this build
+  machine. If it is offline, follow `README.md` to serve the same app locally.
 - The offline model is a keyword implementation and is labelled `MOCK` in the toolbar so it is never
   mistaken for a live Clocked result.
+- Live responses were sampled once per endpoint; this is evidence of correctness, not a benchmark.

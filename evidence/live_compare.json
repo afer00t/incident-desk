@@ -1,0 +1,666 @@
+{
+ "model": "clocked-1.0",
+ "verdict": "duplicates",
+ "threshold": 0.5,
+ "instructions_used": "default",
+ "evidence": "flagged",
+ "documents": [
+  {
+   "id": "TCK-415A05",
+   "duplicates": [],
+   "overlaps": [],
+   "conflicts": []
+  },
+  {
+   "id": "TCK-E236C9",
+   "duplicates": [],
+   "overlaps": [],
+   "conflicts": []
+  },
+  {
+   "id": "TCK-9D825E",
+   "duplicates": [],
+   "overlaps": [],
+   "conflicts": []
+  },
+  {
+   "id": "TCK-05B46E",
+   "duplicates": [],
+   "overlaps": [],
+   "conflicts": []
+  },
+  {
+   "id": "TCK-78C5F5",
+   "duplicates": [],
+   "overlaps": [],
+   "conflicts": []
+  },
+  {
+   "id": "TCK-1550FE",
+   "duplicates": [],
+   "overlaps": [],
+   "conflicts": []
+  },
+  {
+   "id": "TCK-DED498",
+   "duplicates": [],
+   "overlaps": [],
+   "conflicts": []
+  },
+  {
+   "id": "TCK-60AC0D",
+   "duplicates": [
+    "TCK-447B42"
+   ],
+   "overlaps": [],
+   "conflicts": []
+  },
+  {
+   "id": "TCK-447B42",
+   "duplicates": [
+    "TCK-60AC0D"
+   ],
+   "overlaps": [],
+   "conflicts": []
+  }
+ ],
+ "pairs": [
+  {
+   "a": "TCK-415A05",
+   "b": "TCK-E236C9",
+   "relation": "unrelated",
+   "related": 0.004,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0012,
+    "conflicting": 0.0018,
+    "unrelated": 0.996
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-415A05",
+   "b": "TCK-9D825E",
+   "relation": "unrelated",
+   "related": 0.0037,
+   "probabilities": {
+    "same": 0.0011,
+    "overlapping": 0.0013,
+    "conflicting": 0.0014,
+    "unrelated": 0.9963
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-415A05",
+   "b": "TCK-05B46E",
+   "relation": "unrelated",
+   "related": 0.0038,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0014,
+    "conflicting": 0.0014,
+    "unrelated": 0.9962
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-415A05",
+   "b": "TCK-78C5F5",
+   "relation": "unrelated",
+   "related": 0.0035,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0012,
+    "conflicting": 0.0013,
+    "unrelated": 0.9965
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-415A05",
+   "b": "TCK-1550FE",
+   "relation": "unrelated",
+   "related": 0.0051,
+   "probabilities": {
+    "same": 0.0011,
+    "overlapping": 0.0014,
+    "conflicting": 0.0025,
+    "unrelated": 0.9949
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-415A05",
+   "b": "TCK-DED498",
+   "relation": "unrelated",
+   "related": 0.0038,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0013,
+    "conflicting": 0.0014,
+    "unrelated": 0.9962
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-415A05",
+   "b": "TCK-60AC0D",
+   "relation": "unrelated",
+   "related": 0.0041,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0016,
+    "conflicting": 0.0015,
+    "unrelated": 0.9959
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-415A05",
+   "b": "TCK-447B42",
+   "relation": "unrelated",
+   "related": 0.0042,
+   "probabilities": {
+    "same": 0.0011,
+    "overlapping": 0.0015,
+    "conflicting": 0.0016,
+    "unrelated": 0.9958
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-E236C9",
+   "b": "TCK-9D825E",
+   "relation": "unrelated",
+   "related": 0.0036,
+   "probabilities": {
+    "same": 0.0008,
+    "overlapping": 0.0013,
+    "conflicting": 0.0015,
+    "unrelated": 0.9964
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-E236C9",
+   "b": "TCK-05B46E",
+   "relation": "unrelated",
+   "related": 0.0058,
+   "probabilities": {
+    "same": 0.0013,
+    "overlapping": 0.0023,
+    "conflicting": 0.0022,
+    "unrelated": 0.9942
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-E236C9",
+   "b": "TCK-78C5F5",
+   "relation": "unrelated",
+   "related": 0.0297,
+   "probabilities": {
+    "same": 0.0062,
+    "overlapping": 0.0099,
+    "conflicting": 0.0135,
+    "unrelated": 0.9703
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-E236C9",
+   "b": "TCK-1550FE",
+   "relation": "unrelated",
+   "related": 0.0043,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0014,
+    "conflicting": 0.0019,
+    "unrelated": 0.9957
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-E236C9",
+   "b": "TCK-DED498",
+   "relation": "unrelated",
+   "related": 0.0093,
+   "probabilities": {
+    "same": 0.0012,
+    "overlapping": 0.0018,
+    "conflicting": 0.0063,
+    "unrelated": 0.9907
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-E236C9",
+   "b": "TCK-60AC0D",
+   "relation": "unrelated",
+   "related": 0.0039,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0013,
+    "conflicting": 0.0015,
+    "unrelated": 0.9961
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-E236C9",
+   "b": "TCK-447B42",
+   "relation": "unrelated",
+   "related": 0.0046,
+   "probabilities": {
+    "same": 0.0009,
+    "overlapping": 0.0013,
+    "conflicting": 0.0024,
+    "unrelated": 0.9954
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-9D825E",
+   "b": "TCK-05B46E",
+   "relation": "unrelated",
+   "related": 0.0043,
+   "probabilities": {
+    "same": 0.0012,
+    "overlapping": 0.0015,
+    "conflicting": 0.0016,
+    "unrelated": 0.9957
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-9D825E",
+   "b": "TCK-78C5F5",
+   "relation": "unrelated",
+   "related": 0.0045,
+   "probabilities": {
+    "same": 0.0012,
+    "overlapping": 0.0017,
+    "conflicting": 0.0015,
+    "unrelated": 0.9955
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-9D825E",
+   "b": "TCK-1550FE",
+   "relation": "unrelated",
+   "related": 0.0051,
+   "probabilities": {
+    "same": 0.0011,
+    "overlapping": 0.0015,
+    "conflicting": 0.0025,
+    "unrelated": 0.9949
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-9D825E",
+   "b": "TCK-DED498",
+   "relation": "unrelated",
+   "related": 0.0034,
+   "probabilities": {
+    "same": 0.0009,
+    "overlapping": 0.0012,
+    "conflicting": 0.0013,
+    "unrelated": 0.9966
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-9D825E",
+   "b": "TCK-60AC0D",
+   "relation": "unrelated",
+   "related": 0.004,
+   "probabilities": {
+    "same": 0.0008,
+    "overlapping": 0.0013,
+    "conflicting": 0.0018,
+    "unrelated": 0.996
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-9D825E",
+   "b": "TCK-447B42",
+   "relation": "unrelated",
+   "related": 0.0049,
+   "probabilities": {
+    "same": 0.0011,
+    "overlapping": 0.0017,
+    "conflicting": 0.0021,
+    "unrelated": 0.9951
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-05B46E",
+   "b": "TCK-78C5F5",
+   "relation": "unrelated",
+   "related": 0.0039,
+   "probabilities": {
+    "same": 0.0011,
+    "overlapping": 0.0014,
+    "conflicting": 0.0014,
+    "unrelated": 0.9961
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-05B46E",
+   "b": "TCK-1550FE",
+   "relation": "unrelated",
+   "related": 0.0041,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0014,
+    "conflicting": 0.0018,
+    "unrelated": 0.9959
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-05B46E",
+   "b": "TCK-DED498",
+   "relation": "unrelated",
+   "related": 0.0049,
+   "probabilities": {
+    "same": 0.0013,
+    "overlapping": 0.0017,
+    "conflicting": 0.0019,
+    "unrelated": 0.9951
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-05B46E",
+   "b": "TCK-60AC0D",
+   "relation": "unrelated",
+   "related": 0.0044,
+   "probabilities": {
+    "same": 0.0009,
+    "overlapping": 0.0017,
+    "conflicting": 0.0018,
+    "unrelated": 0.9956
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-05B46E",
+   "b": "TCK-447B42",
+   "relation": "unrelated",
+   "related": 0.0053,
+   "probabilities": {
+    "same": 0.0011,
+    "overlapping": 0.0019,
+    "conflicting": 0.0023,
+    "unrelated": 0.9947
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-78C5F5",
+   "b": "TCK-1550FE",
+   "relation": "unrelated",
+   "related": 0.0035,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0012,
+    "conflicting": 0.0013,
+    "unrelated": 0.9965
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-78C5F5",
+   "b": "TCK-DED498",
+   "relation": "unrelated",
+   "related": 0.004,
+   "probabilities": {
+    "same": 0.001,
+    "overlapping": 0.0013,
+    "conflicting": 0.0017,
+    "unrelated": 0.996
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-78C5F5",
+   "b": "TCK-60AC0D",
+   "relation": "unrelated",
+   "related": 0.0075,
+   "probabilities": {
+    "same": 0.0019,
+    "overlapping": 0.0026,
+    "conflicting": 0.003,
+    "unrelated": 0.9925
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-78C5F5",
+   "b": "TCK-447B42",
+   "relation": "unrelated",
+   "related": 0.0038,
+   "probabilities": {
+    "same": 0.0009,
+    "overlapping": 0.0011,
+    "conflicting": 0.0018,
+    "unrelated": 0.9962
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-1550FE",
+   "b": "TCK-DED498",
+   "relation": "unrelated",
+   "related": 0.4466,
+   "probabilities": {
+    "same": 0.0233,
+    "overlapping": 0.2968,
+    "conflicting": 0.1265,
+    "unrelated": 0.5534
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-1550FE",
+   "b": "TCK-60AC0D",
+   "relation": "unrelated",
+   "related": 0.0048,
+   "probabilities": {
+    "same": 0.0012,
+    "overlapping": 0.0017,
+    "conflicting": 0.002,
+    "unrelated": 0.9952
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-1550FE",
+   "b": "TCK-447B42",
+   "relation": "unrelated",
+   "related": 0.0052,
+   "probabilities": {
+    "same": 0.0012,
+    "overlapping": 0.0017,
+    "conflicting": 0.0023,
+    "unrelated": 0.9948
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-DED498",
+   "b": "TCK-60AC0D",
+   "relation": "unrelated",
+   "related": 0.0079,
+   "probabilities": {
+    "same": 0.0017,
+    "overlapping": 0.0026,
+    "conflicting": 0.0036,
+    "unrelated": 0.9921
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-DED498",
+   "b": "TCK-447B42",
+   "relation": "unrelated",
+   "related": 0.0068,
+   "probabilities": {
+    "same": 0.0013,
+    "overlapping": 0.0019,
+    "conflicting": 0.0037,
+    "unrelated": 0.9932
+   },
+   "duplicates": [],
+   "conflicts": []
+  },
+  {
+   "a": "TCK-60AC0D",
+   "b": "TCK-447B42",
+   "relation": "same",
+   "related": 0.9981,
+   "probabilities": {
+    "same": 0.9918,
+    "overlapping": 0.0037,
+    "conflicting": 0.0026,
+    "unrelated": 0.0019
+   },
+   "duplicates": [
+    {
+     "kind": "verbatim",
+     "kinds": {
+      "verbatim": 0.9927,
+      "restated": 0.0032,
+      "elaborated": 0.0019,
+      "different": 0.0022
+     },
+     "confidence": 0.9978,
+     "a": {
+      "document": "TCK-60AC0D",
+      "quote": "Hi, this is () from finance.",
+      "start": 0,
+      "end": 28,
+      "confidence": 1
+     },
+     "b": {
+      "document": "TCK-447B42",
+      "quote": "Hi, this is () from finance.",
+      "start": 0,
+      "end": 28,
+      "confidence": 1
+     }
+    },
+    {
+     "kind": "verbatim",
+     "kinds": {
+      "verbatim": 0.9925,
+      "restated": 0.0031,
+      "elaborated": 0.0019,
+      "different": 0.0025
+     },
+     "confidence": 0.9975,
+     "a": {
+      "document": "TCK-60AC0D",
+      "quote": "My laptop ASSET-4471 will not boot since this morning and I have a client demo at 2 pm.",
+      "start": 29,
+      "end": 116,
+      "confidence": 1
+     },
+     "b": {
+      "document": "TCK-447B42",
+      "quote": "My laptop ASSET-4471 will not boot since this morning and I have a client demo at 2 pm.",
+      "start": 29,
+      "end": 116,
+      "confidence": 1
+     }
+    },
+    {
+     "kind": "verbatim",
+     "kinds": {
+      "verbatim": 0.9919,
+      "restated": 0.0033,
+      "elaborated": 0.0019,
+      "different": 0.0028
+     },
+     "confidence": 0.9972,
+     "a": {
+      "document": "TCK-60AC0D",
+      "quote": "Payroll cutoff is 14:00 today.",
+      "start": 117,
+      "end": 147,
+      "confidence": 1
+     },
+     "b": {
+      "document": "TCK-447B42",
+      "quote": "Payroll cutoff is 14:00 today.",
+      "start": 117,
+      "end": 147,
+      "confidence": 1
+     }
+    }
+   ],
+   "conflicts": []
+  }
+ ],
+ "duplicates": [
+  35
+ ],
+ "overlaps": [],
+ "conflicts": [],
+ "related_pairs": [
+  35
+ ],
+ "stages": {
+  "pairs_reread": 2,
+  "pairs_ms": 91,
+  "passage_reads": 1,
+  "passages_ms": 46,
+  "passages": 3,
+  "counterparts_ms": 71
+ },
+ "timing": {
+  "read_ms": 207,
+  "total_ms": 211
+ }
+}

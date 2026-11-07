@@ -197,10 +197,7 @@ def intake(req: Intake):
     severity = min(3, max(0, round(decision.get("answers", {}).get("severity", {}).get("score", 0) or 0)))
     owner_key = decision.get("answers", {}).get("owner", {}).get("choice", "identity")
     blocked = injection.get("verdict") == "injection"
-    ticket_id = "TCK-" + uuid.uuid4().hex[:6].upper()
-
     row = {
-        "id": ticket_id,
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%S+07:00"),
         "safe_text": safe,
         "entities": pii,
@@ -213,14 +210,20 @@ def intake(req: Intake):
         "priority": 0 if blocked else severity + 1,
         "mode": "live" if api.active else "mock",
     }
-    with db() as conn:
-        conn.execute(
-            """INSERT INTO tickets(id,created_at,safe_text,entities,injection,decision,extraction,status,priority,mode)
-               VALUES(?,?,?,?,?,?,?,?,?,?)""",
-            (row["id"], row["created_at"], row["safe_text"], json.dumps(row["entities"]), json.dumps(row["injection"]),
-             json.dumps(row["decision"]), json.dumps(row["extraction"]), row["status"], row["priority"], row["mode"]),
-        )
-    return row
+    for _ in range(8):
+        row["id"] = "TCK-" + uuid.uuid4().hex[:6].upper()
+        try:
+            with db() as conn:
+                conn.execute(
+                    """INSERT INTO tickets(id,created_at,safe_text,entities,injection,decision,extraction,status,priority,mode)
+                       VALUES(?,?,?,?,?,?,?,?,?,?)""",
+                    (row["id"], row["created_at"], row["safe_text"], json.dumps(row["entities"]), json.dumps(row["injection"]),
+                     json.dumps(row["decision"]), json.dumps(row["extraction"]), row["status"], row["priority"], row["mode"]),
+                )
+            return row
+        except sqlite3.IntegrityError:
+            continue  # 6-hex id collided; draw a new one
+    return {"error": "could not allocate a ticket id"}
 
 
 @app.post("/api/answer")
