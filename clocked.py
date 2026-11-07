@@ -4,6 +4,7 @@ from __future__ import annotations
 import os
 import time
 import uuid
+from pathlib import Path
 
 import httpx
 
@@ -19,6 +20,13 @@ class ClockedError(RuntimeError):
 class Clocked:
     def __init__(self, key: str | None = None, timeout: float = 90.0):
         self.key = (key or os.environ.get("CLOCKED_API_KEY") or "").strip()
+        if not self.key:
+            path = Path(__file__).resolve().parent / ".env"
+            if path.exists():
+                for line in path.read_text().splitlines():
+                    if line.startswith("CLOCKED_API_KEY="):
+                        self.key = line.split("=", 1)[1].strip().strip('"')
+                        break
         self.timeout = timeout
         self.last_headers: dict[str, str] = {}
 
@@ -50,8 +58,10 @@ class Clocked:
         raise ClockedError(429, "rate limited after retry")
 
     # ---- endpoints used by the app -------------------------------------
-    def pii(self, text: str, entities: dict | None = None, anonymize: bool = True, threshold: float = 0.35):
-        payload = {"text": text, "anonymize": anonymize, "threshold": threshold}
+    def pii(self, text: str, entities: dict | None = None, anonymize: str = "redact", threshold: float = 0.5):
+        """anonymize accepts replace | mask | hash | redact, or an object of {kind: operator}."""
+        allowed = {"replace", "mask", "hash", "redact"}
+        payload = {"text": text, "anonymize": anonymize if anonymize in allowed else "redact", "threshold": threshold}
         if entities:
             payload["entities"] = entities
         return self.call("pii", payload)

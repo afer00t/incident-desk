@@ -65,10 +65,25 @@ ticket id moved from a timestamp to `uuid4`.
 - 390 px: single-column layout (`aside` and `main` both 390 px), `scrollWidth == 390`, zero
   overflowing elements.
 
-## 6. Not verified
+## 6. Live verification
 
-- Live Clocked calls: no API key was available while this was built (signup endpoint returned
-  `Too many attempts. Please wait before trying again.`). The stub proves the wire contract; the
-  real server has not been exercised from this network.
-- Concurrency above 1: the free tier allows one concurrent request, and the app makes sequential
-  calls per intake.
+Run on 2026-11-07 at 16:23 WIB against `https://clocked.rezolve.ai/clocked` with a real free-tier key
+(20,000 credits, concurrency 4). Server state after the run: `requests 14`, `credits 41`,
+`cost_usd 0.0082`.
+
+| Call | Live result |
+|---|---|
+| `pii` | `anonymized_text` = `Hi, this is () from finance…`, entities person + email |
+| `injection` | `verdict injection`, `injection 0.9961`, category `instruction override` |
+| `decide` | severity `score 2.988` → `Critical`, owner `hardware` `0.9647` |
+| `extract` | reporter `Priya Nair`, email, `asset ASSET-4471`, issue `will not boot` |
+| `grounding` (contradictory draft) | `verdict ungrounded`, `grounded 0.019`, weakest claim returned |
+| `grounding` (factual draft) | `verdict grounded`, `grounded 0.91` |
+| `compare` | `pairs` with relation and probabilities (treat as unrelated at `0.9963`) |
+| `rerank` | `kb-laptop` → `use` `0.99`, `kb-vpn` → `skip` `0.0` |
+| `script` | `verdict malicious`, `malicious 0.997`, `security blinding or EDR evasion` |
+
+Screen shot of the live console: `docs/screenshots/04-live-verified.png`.
+
+The first live intake failed with a `run()` signature error; fixed, then 14 requests succeeded.
+`anonymize` is not a boolean on the wire — it is the string `redact` (the API returns 422 otherwise).

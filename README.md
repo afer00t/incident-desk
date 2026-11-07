@@ -26,8 +26,8 @@ inbound ──► PII (redact) ──► Guard (injection) ──► Decide (sev
 |---|---|
 | ![Blocked ticket](docs/screenshots/01-guard-blocked.png) | ![Grounding](docs/screenshots/02-grounding.png) |
 | Guard isolates an instruction-override ticket | Per-claim grounding on a drafted answer |
-| ![Duplicates](docs/screenshots/03-duplicates.png) | |
-| Compare flags the near-duplicate payroll reports | |
+| ![Duplicates](docs/screenshots/03-duplicates.png) | ![Live](docs/screenshots/04-live-verified.png) |
+| Compare flags the near-duplicate payroll reports | Live console: 14 calls, 41 credits, $0.0082 |
 
 ## What it demonstrates
 

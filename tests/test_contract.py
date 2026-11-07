@@ -66,6 +66,7 @@ def test_client_contract():
     for path, keys in seen["idem"].items():
         assert len(set(keys)) == 1, f"{path} retried with a new idempotency key"
     assert set(seen["payloads"]["/pii"]) >= {"text", "anonymize", "threshold"}
+    assert seen["payloads"]["/pii"]["anonymize"] == "redact"
     assert seen["payloads"]["/injection"]["source"] == "user"
     assert {"state", "questions"} <= set(seen["payloads"]["/decide"])
     assert {"question", "documents", "answer"} <= set(seen["payloads"]["/grounding"])
